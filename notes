@@ -1,0 +1,6 @@
+Service class
+
+- get sqlalchemy exc and wrap them in custom exc to decouple the routes from the database access class (will only expect ...ServiceException s)
+- alternatively catch exceptions and return a -1 instead of the expected output
+
+- ideally would arrange the project as module/{routes,forms,models,exceptions etc}

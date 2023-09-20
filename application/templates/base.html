@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Library Website</title>
+    </head>
+    <body>
+        <div>
+            Library:
+            <a href="{{ url_for('main.home') }}">Home</a>
+            <a href="{{ url_for('main.add') }}">Add new book</a>
+            <a href="{{ url_for('main.list_all_books') }}">List all books</a>
+            <a href="{{ url_for('main.update_book') }}">Update book</a>
+            <a href="{{ url_for('main.delete_book') }}">Delete book</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

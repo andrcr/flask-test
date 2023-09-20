@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for book in books %}
+        <div>
+            <p>
+                Book name: {{ book.name }}<br>
+                Author: {{ book.author }}<br>
+                Description: {{ book.description }}<br>
+                Fake ISBN: {{ book.isbn }} 
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
