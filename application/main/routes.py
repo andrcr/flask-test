@@ -26,7 +26,7 @@ def add():
     else: 
         if form.validate():
             try:
-                book_service.add_book(name = form.name.data,   # is this considered clean or without =
+                book_service.add_book(name = form.name.data,   # is this considered clean or without name =
                                       author = form.author.data, 
                                       description = form.description.data, 
                                       isbn = form.isbn.data )
