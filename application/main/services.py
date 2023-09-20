@@ -3,10 +3,26 @@ from application.models import Book
 from application.main.exceptions import BookServiceException
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
 from sqlalchemy import select
+from typing import List
 
 class BookService():
 
-    def add_book(self, name, author, description, isbn):
+    def add_book(self, name: str, author: str, description: str, isbn: str) -> None:
+        '''
+        Adds a new book to the database
+
+            Args:
+                name (str): Name of book to be added
+                author (str): Author of book to be added
+                description (str): Description of book to be added
+                isbn (str): ISBN of book to be added
+
+            Returns:
+                None
+
+            Raises:
+                BookServiceException
+        '''
         new_book = Book(name = name,
                         author = author, 
                         description = description, 
@@ -18,14 +34,14 @@ class BookService():
             db.session.rollback()
             raise BookServiceException(500,str(ex) +" "+ str(new_book)) from ex
         
-    def get_all_books_list(self):
+    def get_all_books_list(self) -> List[Book]:
         try:
             books = Book.query.all()
             return books
         except SQLAlchemyError as ex:
             raise BookServiceException(500,ex._message) from ex
         
-    def get_book_by_isbn(self, isbn):
+    def get_book_by_isbn(self, isbn: str) -> Book:
         try:
             book = db.session.execute(select(Book) \
                                      .filter_by(isbn=isbn)) \
@@ -39,7 +55,7 @@ class BookService():
     
     # validating field name in the form for immediate feedback to user
     # unsure if form validation is done with requests sent outside of the UI
-    def update_book(self, isbn, field_name, new_value):
+    def update_book(self, isbn: str, field_name: str, new_value: str) -> None:
         try:
             book = db.session.execute(select(Book) \
                                      .filter_by(isbn=isbn)) \
@@ -50,7 +66,7 @@ class BookService():
             db.session.rollback()
             raise BookServiceException(500,ex._message) from ex
     
-    def delete_book(self, isbn):
+    def delete_book(self, isbn: str) -> None:
         try:
             book = db.session.execute(select(Book) \
                                      .filter_by(isbn=isbn)) \
@@ -60,5 +76,3 @@ class BookService():
         except SQLAlchemyError as ex:
             db.session.rollback()
             raise BookServiceException(500,ex._message) from ex
-    
-book_service = BookService()  # is this best place?

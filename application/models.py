@@ -1,6 +1,8 @@
 from application import db
 
 class Book(db.Model):
+    # sqlalchemy base model has an init
+
     __tablename__ = "books"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))

@@ -4,3 +4,6 @@ Service class
 - alternatively catch exceptions and return a -1 instead of the expected output
 
 - ideally would arrange the project as module/{routes,forms,models,exceptions etc}
+
+
+use test class - f/e class i test

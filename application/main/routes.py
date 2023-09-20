@@ -4,7 +4,7 @@ from application.main import bp
 from application.main.forms import (AddingBooksForm, 
                                     UpdatingBooksForm,
                                     DeleteBooksForm)
-from application.main.services import book_service
+from application.main.services import BookService
 from application.main.exceptions import HTTPError404, BookServiceException
 from flask import render_template, request, flash, redirect
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
@@ -12,6 +12,8 @@ from sqlalchemy import select
 
 import datetime
 import os
+
+book_service = BookService()
 
 @bp.route("/")
 def home():
@@ -26,7 +28,7 @@ def add():
     else: 
         if form.validate():
             try:
-                book_service.add_book(name = form.name.data,   # is this considered clean or without name =
+                book_service.add_book(name = form.name.data, 
                                       author = form.author.data, 
                                       description = form.description.data, 
                                       isbn = form.isbn.data )
